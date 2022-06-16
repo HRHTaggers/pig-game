@@ -9,6 +9,7 @@ let diceElement = document.querySelector('.dice');
 const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector(".btn--roll");
 const btnHold = document.querySelector(".btn--hold");
+const winnerAudio = new Audio('winner-audio.wav');
 
 const background0Element = document.querySelector('.player--0');
 const background1Element = document.querySelector('.player--1');
@@ -76,6 +77,7 @@ btnHold.addEventListener('click', function () {
             document.querySelector(`.player--${activePlayer}`).classList.add('player--winner');
             document.querySelector(`.player--${activePlayer}`).classList.remove('player--active');
             diceElement.classList.add('hidden');
+            winnerAudio.play();
             } else {
                 switchPlayer();
             }
