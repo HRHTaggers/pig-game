@@ -9,7 +9,11 @@ let diceElement = document.querySelector('.dice');
 const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector(".btn--roll");
 const btnHold = document.querySelector(".btn--hold");
+
 const winnerAudio = new Audio('winner-audio.wav');
+const switchAudio = new Audio('roll-1-buzzer.wav');
+const correctRollAudio = new Audio('roll-not-1-buzzer.wav');
+const holdAudio = new Audio('hold-buzzer.wav');
 
 const background0Element = document.querySelector('.player--0');
 const background1Element = document.querySelector('.player--1');
@@ -58,9 +62,11 @@ btnRoll.addEventListener('click', function () {
         diceElement.classList.remove('hidden');
         diceElement.src = `/img/dice-${dice}.png`;
         if (dice !== 1) {
+            correctRollAudio.play();
             currentScore += dice;
             document.getElementById(`current--${activePlayer}`).textContent = currentScore;
             } else {
+                switchAudio.play();
                 switchPlayer();
             }
         }
@@ -70,9 +76,10 @@ btnRoll.addEventListener('click', function () {
 //HOLD THE SCORE
 btnHold.addEventListener('click', function () {
     if (playing) {
+        holdAudio.play();
         scores[activePlayer] += currentScore;
         document.getElementById(`score--${activePlayer}`).textContent = scores[activePlayer];
-        if (scores[activePlayer] > 20) {
+        if (scores[activePlayer] > 100) {
             playing = false;
             document.querySelector(`.player--${activePlayer}`).classList.add('player--winner');
             document.querySelector(`.player--${activePlayer}`).classList.remove('player--active');
